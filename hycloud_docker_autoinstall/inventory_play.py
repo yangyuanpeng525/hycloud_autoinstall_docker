@@ -68,7 +68,7 @@ def run_first(group=None):
         log_output(group + output + os.path.join(workpath, "inter.sh"))
         with open(os.path.join(workpath, "inter.sh"), 'a') as f:
             f.write("cd %s; ansible-playbook -i inventory_%s install_%s.yml\n" % (workpath, group, group))
-            log_output(log="cd %s; ansible-playbook -i inventory_%s install_%s.yml" % (workpath, group, group))
+            # log_output(log="cd %s; ansible-playbook -i inventory_%s install_%s.yml\n" % (workpath, group, group))
 
 # 定义函数，执行基础
 def ParseFile(filename=None):
@@ -219,7 +219,7 @@ def trs_run():
                     print(group + output + os.path.join(workpath, "inter.sh"))
                     log_output(log=group + output + os.path.join(workpath, "inter.sh"))
                     with open(os.path.join(workpath, "inter.sh"), 'a') as f:
-                        f.write("cd %s; ansible-playbook -i inventory_%s install_%s.yml\n" % (workpath, group, group))
+                        f.write("cd %s; ansible-playbook -i inventory_%s install_%s.yml" % (workpath, group, group))
 
 # 海云应用
 def hy_run():
@@ -298,7 +298,6 @@ if __name__ == "__main__":
     print("-" * 20 + "开始安装海云应用" + "-" * 20)
     log_output(log="-" * 20 + "开始安装海云应用" + "-" * 20)
     hy_run()
-
 #安装完成
     print("安装完成！！！")
     log_output(log="安装完成！！！\n")

@@ -89,6 +89,26 @@ else
   output_result="${output_result} FolderMustExist:${target_folder_path}目录需存在:${target_folder_path}已存在:目标目录${target_folder_path}已存在:good"
 fi
 
+### add at 20201030  新增目录权限检测
+if [ ! -d ${target_folder_path} ]
+then
+  server_state='服务器检测异常'
+  output_result="${output_result} FolderMustOwnByRoot:${target_folder_path}目录需ROOT权限:${target_folder_path}不存在:目标目录${target_folder_path}不存在,无法进行权限检测:bad"
+else
+  tmp_owner=$(stat -c '%U' /TRS)
+  if  [[ "${tmp_owner}" == 'root' ]]
+  then
+     output_result="${output_result} FolderMustOwnByRoot:${target_folder_path}必须属于ROOT用户:正常:${target_folder_path}已经属于ROOT用户:good"
+  else
+     server_state='服务器检测异常'
+	 output_result="${output_result} FolderMustOwnByRoot:${target_folder_path}必须属于ROOT用户:异常:${target_folder_path}属于${tmp_owner}用户:bad"
+  fi
+fi
+
+
+
+
+#####    end    ####
 output_result="summary:${server_state} ${output_result}"
 
 echo "${output_result}">${output_file}

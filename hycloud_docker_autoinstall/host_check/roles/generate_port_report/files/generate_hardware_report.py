@@ -39,7 +39,7 @@ for item in TmpFaildResult+TmpPassedResult:
     ReportTxtFile.write(item+'\n')
 ReportTxtFile.close()
 
-ChineseNameMapping={'MinCPUCore':'CPU核心数','MinMemSize':'内存大小','MinDiskSize':'磁盘容量','MinDiskIOSpeed':'磁盘IO','FolderMustExist':'目录检测'}
+ChineseNameMapping={'MinCPUCore':'CPU核心数','MinMemSize':'内存大小','MinDiskSize':'磁盘容量','MinDiskIOSpeed':'磁盘IO','FolderMustExist':'目录检测','FolderMustOwnByRoot':'/TRS 目录必须属于ROOT 用户'}
 
 TmpHTMLContent=''
 with open(TmpSearchBasePath+'/../report/hardware_check_result_report.txt', mode='r') as f:

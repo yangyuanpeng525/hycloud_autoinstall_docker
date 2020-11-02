@@ -35,6 +35,10 @@ table, th, td {
     <th>预期值</th>
     <th>实际值</th>
     <th>单项结果</th>
+	<th>检测项</th>
+    <th>预期值</th>
+    <th>实际值</th>
+    <th>单项结果</th>
   </tr>
    {replace_me_here}
 </table>

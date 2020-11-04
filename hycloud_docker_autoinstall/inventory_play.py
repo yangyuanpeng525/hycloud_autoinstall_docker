@@ -32,6 +32,7 @@ SectionDict_elasticsearch = {}
 base_first_run = ["mariadb_net", "mariadb", "mariadb_replication", "nginx", "nginx_net"]
 # trs应用列表
 trs_list = ["ids", "mas", "ids_net", "wechat", "trsweibo"]
+trs_net_list = ["ids_net", "wechat", "trsweibo"]
 # hy应用列表
 hy_list = ["iip", "igi", "igs", "ipm", "igi_net"]
 # 安装所有trs应用的数
@@ -40,7 +41,7 @@ trs_num = 0
 hy_num = 0
 
 #由于网络原因，互联网区域不进行安装
-inter_no_install = ["nginx_net", "ids_net", "wechat", "trsweibo", "igi_net", "mariadb_net"]
+inter_no_install = ["nginx_net", "ids_net", "igi_net", "mariadb_net"]
 output=" 属于互联网区域，跳过安装！！！互联网区域应用若需要安装，请执行执行： bash "
 # 先执行mariadb，nginx
 
@@ -67,7 +68,7 @@ def run_first(group=None):
         print(group + output + os.path.join(workpath, "inter.sh"))
         log_output(group + output + os.path.join(workpath, "inter.sh"))
         with open(os.path.join(workpath, "inter.sh"), 'a') as f:
-            f.write("cd %s; ansible-playbook -i inventory_%s install_%s.yml\n" % (workpath, group, group))
+            f.write("\ncd %s; ansible-playbook -i inventory_%s install_%s.yml\n" % (workpath, group, group))
             # log_output(log="cd %s; ansible-playbook -i inventory_%s install_%s.yml\n" % (workpath, group, group))
 
 # 定义函数，执行基础
@@ -199,7 +200,7 @@ def trs_run():
                     else:
                         f.write(":".join(i) + "\n")
 #ids_net使用nginx——net
-                if group == "ids_net":
+                if group in trs_net_list:
                     f.write("[nginx_net]\n")
                     f.write(":".join(SectionDict_nginx_net["nginx_net"][0]) + "\n")
                 else:
@@ -219,7 +220,7 @@ def trs_run():
                     print(group + output + os.path.join(workpath, "inter.sh"))
                     log_output(log=group + output + os.path.join(workpath, "inter.sh"))
                     with open(os.path.join(workpath, "inter.sh"), 'a') as f:
-                        f.write("cd %s; ansible-playbook -i inventory_%s install_%s.yml" % (workpath, group, group))
+                        f.write("\ncd %s; ansible-playbook -i inventory_trs_%s install_%s.yml\n" % (workpath, group, group))
 
 # 海云应用
 def hy_run():
@@ -260,7 +261,7 @@ def hy_run():
                 print(group + output + os.path.join(workpath, "inter.sh"))
                 log_output(log=group + output + os.path.join(workpath, "inter.sh"))
                 with open(os.path.join(workpath, "inter.sh"), 'a') as f:
-                    f.write("cd %s; ansible-playbook -i inventory_%s install_%s.yml\n" % (workpath, group, group))
+                    f.write("\ncd %s; ansible-playbook -i inventory_hy_%s install_%s.yml\n" % (workpath, group, group))
 # 主函数
 if __name__ == "__main__":
     # 安装docker

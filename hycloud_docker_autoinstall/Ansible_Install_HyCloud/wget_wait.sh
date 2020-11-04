@@ -368,6 +368,11 @@ if [ "$ansible_ip" == "N" ];then
 		echo -e "\n将 \033[31m/TRS/hycloud_docker_autoinstall.tar.gz\033[0m 手动拷贝到ansible控制机的 \033[31m/TRS\033[0m 目录\n在ansible控制机执行命令：\033[32mcd /TRS; tar -Pzxf hycloud_docker_autoinstall.tar.gz \033[0m解压。\n"
 	fi
 
+	cd /TRS; tar -Pzcf  ansible_tmp.tar.gz  /TRS/tmp/ansible_tmp
+	if [ $? == 0 ];then
+		echo -e "\n将 \033[31m/TRS/ansible_tmp.tar.gz\033[0m 手动拷贝到ansible控制机的 \033[31m/TRS\033[0m 目录\n在ansible控制机执行命令：\033[32mcd /TRS; tar -Pzxf ansible_tmp.tar.gz \033[0m解压。\n"
+	fi
+
 
 
 ##检测远程是否有ansible docker安装环境
